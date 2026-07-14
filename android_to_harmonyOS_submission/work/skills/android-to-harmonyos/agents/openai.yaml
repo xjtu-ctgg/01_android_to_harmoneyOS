@@ -1,4 +1,0 @@
-interface:
-  display_name: "Android to HarmonyOS Migrator"
-  short_description: "Rebuild Android apps as verified HarmonyOS projects"
-  default_prompt: "Use $android-to-harmonyos to migrate this Android app into a traceable, testable HarmonyOS project."
