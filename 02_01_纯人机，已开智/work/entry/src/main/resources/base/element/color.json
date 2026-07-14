@@ -1,0 +1,184 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "page_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "destination_overlay",
+      "value": "#F2FFFFFF"
+    },
+    {
+      "name": "brand_primary",
+      "value": "#4B30ED"
+    },
+    {
+      "name": "brand_secondary",
+      "value": "#86F7FA"
+    },
+    {
+      "name": "filter_elevated_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "filter_elevated_selected",
+      "value": "#8EF8FA"
+    },
+    {
+      "name": "ui_border",
+      "value": "#1F000000"
+    },
+    {
+      "name": "ui_floated",
+      "value": "#F6F6F6"
+    },
+    {
+      "name": "text_primary",
+      "value": "#4B30ED"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#DE000000"
+    },
+    {
+      "name": "text_help",
+      "value": "#99000000"
+    },
+    {
+      "name": "text_interactive",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "text_on_secondary",
+      "value": "#FF000000"
+    },
+    {
+      "name": "text_link",
+      "value": "#005687"
+    },
+    {
+      "name": "icon_primary",
+      "value": "#4B30ED"
+    },
+    {
+      "name": "icon_secondary",
+      "value": "#DE000000"
+    },
+    {
+      "name": "icon_interactive",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "icon_interactive_inactive",
+      "value": "#BDFFFFFF"
+    },
+    {
+      "name": "functional_error",
+      "value": "#D00036"
+    },
+    {
+      "name": "gradient_shadow_start",
+      "value": "#7057F5"
+    },
+    {
+      "name": "detail_gradient_start",
+      "value": "#7057F5"
+    },
+    {
+      "name": "detail_gradient_end",
+      "value": "#86F7FA"
+    },
+    {
+      "name": "gradient_shadow_middle",
+      "value": "#C8BBFD"
+    },
+    {
+      "name": "gradient_ocean_middle",
+      "value": "#86F7FA"
+    },
+    {
+      "name": "gradient_rose_start",
+      "value": "#F4568B"
+    },
+    {
+      "name": "gradient_lavender_middle",
+      "value": "#C186FA"
+    },
+    {
+      "name": "gradient_rose_middle",
+      "value": "#FDBBCF"
+    },
+    {
+      "name": "search_gradient_one_start",
+      "value": "#86F7FA"
+    },
+    {
+      "name": "search_gradient_one_end",
+      "value": "#9B86FA"
+    },
+    {
+      "name": "search_gradient_two_start",
+      "value": "#C186FA"
+    },
+    {
+      "name": "search_gradient_two_end",
+      "value": "#FDBBCF"
+    },
+    {
+      "name": "button_gradient_start",
+      "value": "#7057F5"
+    },
+    {
+      "name": "button_gradient_end",
+      "value": "#001787"
+    },
+    {
+      "name": "filter_border_gradient_start",
+      "value": "#86F7FA"
+    },
+    {
+      "name": "filter_border_gradient_end",
+      "value": "#9B86FA"
+    },
+    {
+      "name": "quantity_border_gradient_start",
+      "value": "#86F7FA"
+    },
+    {
+      "name": "quantity_border_gradient_end",
+      "value": "#9B86FA"
+    },
+    {
+      "name": "button_scrim",
+      "value": "#52000000"
+    },
+    {
+      "name": "overlay_scrim",
+      "value": "#80000000"
+    },
+    {
+      "name": "form_widget_background",
+      "value": "#E0F3FF"
+    },
+    {
+      "name": "form_secondary_container",
+      "value": "#E8DEF8"
+    },
+    {
+      "name": "form_primary",
+      "value": "#6750A4"
+    },
+    {
+      "name": "form_secondary",
+      "value": "#625B71"
+    },
+    {
+      "name": "form_on_surface",
+      "value": "#1C1B1F"
+    }
+  ]
+}

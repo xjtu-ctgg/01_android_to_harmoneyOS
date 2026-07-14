@@ -1,0 +1,700 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "repository": "https://github.com/fuxi-artifacts/demo-Jetsnack-android",
+    "commit": "23e1421b72b602d80486777efbf24dd248abf3bb",
+    "branch": "competition",
+    "module": "app",
+    "applicationId": "com.example.jetsnack",
+    "framework": "Jetpack Compose"
+  },
+  "localeContract": {
+    "androidCurrencySource": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/utils/Currency.kt",
+    "androidNavigationSource": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+    "currencyDataVersion": "CLDR 49",
+    "currencyDataSource": "https://unicode.org/cldr/charts/49/supplemental/detailed_territory_currency_information.html",
+    "amountSemantics": "price cents are divided by 100 without exchange-rate conversion",
+    "languageOnlyLocale": "maximize to likely region",
+    "unknownCurrency": "XXX",
+    "specialTerritories": {
+      "AC": "SHP",
+      "AQ": "XXX",
+      "BG": "EUR",
+      "CP": "XXX",
+      "CW": "XCG",
+      "DG": "USD",
+      "EA": "EUR",
+      "IC": "EUR",
+      "SX": "XCG",
+      "TA": "GBP",
+      "XK": "EUR",
+      "ZW": "ZWG"
+    }
+  },
+  "navigationContract": {
+    "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/navigation/JetsnackNavController.kt",
+    "sourceSemantics": "bottom-tab navigation uses launchSingleTop, restoreState and saveState",
+    "targetSemantics": "keep all four tab pages mounted and preserve each tab navigation state"
+  },
+  "windowContract": {
+    "source": "source-facts/android-source/app/src/main/AndroidManifest.xml",
+    "sourceKeyboardMode": "adjustResize",
+    "targetKeyboardAvoidMode": "KeyboardAvoidMode.RESIZE"
+  },
+  "pages": [
+    {
+      "id": "feed",
+      "name": "Feed",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Feed.kt",
+      "target": "entry/src/main/ets/screens/FeedScreen.ets",
+      "route": "home/feed",
+      "stableId": "screen.feed",
+      "journey": "core.feed"
+    },
+    {
+      "id": "search",
+      "name": "Search",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/search/Search.kt",
+      "target": "entry/src/main/ets/screens/SearchScreen.ets",
+      "route": "home/search",
+      "stableId": "screen.search",
+      "journey": "core.search"
+    },
+    {
+      "id": "cart",
+      "name": "Cart",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/cart/Cart.kt",
+      "target": "entry/src/main/ets/screens/CartScreen.ets",
+      "route": "home/cart",
+      "stableId": "screen.cart",
+      "journey": "core.cart"
+    },
+    {
+      "id": "profile",
+      "name": "Profile",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Profile.kt",
+      "target": "entry/src/main/ets/screens/ProfileScreen.ets",
+      "route": "home/profile",
+      "stableId": "screen.profile",
+      "journey": "core.profile"
+    },
+    {
+      "id": "detail",
+      "name": "Snack detail",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/snackdetail/SnackDetail.kt",
+      "target": "entry/src/main/ets/screens/DetailScreen.ets",
+      "route": "snack/{snackId}?origin={origin}",
+      "stableId": "screen.detail",
+      "journey": "core.detail"
+    },
+    {
+      "id": "filter",
+      "name": "Filter overlay",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/FilterScreen.kt",
+      "target": "entry/src/main/ets/screens/FilterOverlay.ets",
+      "route": "overlay/filter",
+      "stableId": "overlay.filter",
+      "journey": "core.filter"
+    }
+  ],
+  "routes": [
+    {
+      "id": "route.feed",
+      "pattern": "home/feed",
+      "kind": "tab",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.feed",
+      "journey": "core.navigation.feed"
+    },
+    {
+      "id": "route.search",
+      "pattern": "home/search",
+      "kind": "tab",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.search",
+      "journey": "core.navigation.search"
+    },
+    {
+      "id": "route.cart",
+      "pattern": "home/cart",
+      "kind": "tab",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.cart",
+      "journey": "core.navigation.cart",
+      "deepLink": "https://jetsnack.example.com/home/cart"
+    },
+    {
+      "id": "route.profile",
+      "pattern": "home/profile",
+      "kind": "tab",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.profile",
+      "journey": "core.navigation.profile"
+    },
+    {
+      "id": "route.detail",
+      "pattern": "snack/{snackId}?origin={origin}",
+      "kind": "detail",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/JetsnackApp.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.detail",
+      "journey": "core.navigation.detail"
+    },
+    {
+      "id": "route.filter",
+      "pattern": "overlay/filter",
+      "kind": "overlay",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Feed.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.filter",
+      "journey": "core.navigation.filter"
+    }
+  ],
+  "snacks": [
+    {
+      "stableId": 1,
+      "sourceIndex": 0,
+      "name": "Cupcake",
+      "image": "cupcake.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 2,
+      "sourceIndex": 1,
+      "name": "Donut",
+      "image": "donut.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 3,
+      "sourceIndex": 2,
+      "name": "Eclair",
+      "image": "eclair.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 4,
+      "sourceIndex": 3,
+      "name": "Froyo",
+      "image": "froyo.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 5,
+      "sourceIndex": 4,
+      "name": "Gingerbread",
+      "image": "gingerbread.jpg",
+      "priceCents": 499,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 6,
+      "sourceIndex": 5,
+      "name": "Honeycomb",
+      "image": "honeycomb.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 7,
+      "sourceIndex": 6,
+      "name": "Ice Cream Sandwich",
+      "image": "ice_cream_sandwich.jpg",
+      "priceCents": 1299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 8,
+      "sourceIndex": 7,
+      "name": "Jellybean",
+      "image": "jelly_bean.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 9,
+      "sourceIndex": 8,
+      "name": "KitKat",
+      "image": "kitkat.jpg",
+      "priceCents": 549,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 10,
+      "sourceIndex": 9,
+      "name": "Lollipop",
+      "image": "lollipop.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 11,
+      "sourceIndex": 10,
+      "name": "Marshmallow",
+      "image": "marshmallow.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 12,
+      "sourceIndex": 11,
+      "name": "Nougat",
+      "image": "nougat.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 13,
+      "sourceIndex": 12,
+      "name": "Oreo",
+      "image": "oreo.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 14,
+      "sourceIndex": 13,
+      "name": "Pie",
+      "image": "pie.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 15,
+      "sourceIndex": 14,
+      "name": "Chips",
+      "image": "chips.jpg",
+      "priceCents": 299,
+      "tagline": ""
+    },
+    {
+      "stableId": 16,
+      "sourceIndex": 15,
+      "name": "Pretzels",
+      "image": "pretzels.jpg",
+      "priceCents": 299,
+      "tagline": ""
+    },
+    {
+      "stableId": 17,
+      "sourceIndex": 16,
+      "name": "Smoothies",
+      "image": "smoothies.jpg",
+      "priceCents": 299,
+      "tagline": ""
+    },
+    {
+      "stableId": 18,
+      "sourceIndex": 17,
+      "name": "Popcorn",
+      "image": "popcorn.jpg",
+      "priceCents": 299,
+      "tagline": ""
+    },
+    {
+      "stableId": 19,
+      "sourceIndex": 18,
+      "name": "Almonds",
+      "image": "almonds.jpg",
+      "priceCents": 299,
+      "tagline": ""
+    },
+    {
+      "stableId": 20,
+      "sourceIndex": 19,
+      "name": "Cheese",
+      "image": "cheese.jpg",
+      "priceCents": 299,
+      "tagline": ""
+    },
+    {
+      "stableId": 21,
+      "sourceIndex": 20,
+      "name": "Apples",
+      "image": "apples.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 22,
+      "sourceIndex": 21,
+      "name": "Apple sauce",
+      "image": "apple_sauce.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 23,
+      "sourceIndex": 22,
+      "name": "Apple chips",
+      "image": "apple_chips.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 24,
+      "sourceIndex": 23,
+      "name": "Apple juice",
+      "image": "apple_juice.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 25,
+      "sourceIndex": 24,
+      "name": "Apple pie",
+      "image": "apple_pie.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 26,
+      "sourceIndex": 25,
+      "name": "Grapes",
+      "image": "grapes.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 27,
+      "sourceIndex": 26,
+      "name": "Kiwi",
+      "image": "kiwi.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    },
+    {
+      "stableId": 28,
+      "sourceIndex": 27,
+      "name": "Mango",
+      "image": "mango.jpg",
+      "priceCents": 299,
+      "tagline": "A tag line"
+    }
+  ],
+  "collections": [
+    {
+      "stableId": 1,
+      "name": "Android's picks",
+      "type": "Highlight",
+      "snackStableIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    },
+    {
+      "stableId": 2,
+      "name": "Popular on Jetsnack",
+      "type": "Normal",
+      "snackStableIds": [15, 16, 17, 18, 19]
+    },
+    {
+      "stableId": 3,
+      "name": "WFH favourites",
+      "type": "Highlight",
+      "snackStableIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    },
+    {
+      "stableId": 4,
+      "name": "Newly Added",
+      "type": "Normal",
+      "snackStableIds": [15, 16, 17, 18, 19]
+    },
+    {
+      "stableId": 5,
+      "name": "Only on Jetsnack",
+      "type": "Highlight",
+      "snackStableIds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    }
+  ],
+  "search": {
+    "states": ["Categories", "Suggestions", "Results", "NoResults"],
+    "matchRule": "case-insensitive contains",
+    "simulatedDelayMs": 200,
+    "queryExpectations": {
+      "Apple": [21, 22, 23, 24, 25],
+      "Cheese": [20],
+      "NoSuchSnack": [],
+      "": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ],
+      " ": [
+        7,
+        22,
+        23,
+        24,
+        25
+      ],
+      " Apple ": []
+    },
+    "categoryGroups": [
+      {
+        "name": "Categories",
+        "items": ["Chips & crackers", "Fruit snacks", "Desserts", "Nuts"]
+      },
+      {
+        "name": "Lifestyles",
+        "items": ["Organic", "Gluten Free", "Paleo", "Vegan", "Vegetarian", "Whole30"]
+      }
+    ],
+    "categoryGeometry": {
+      "columns": 2,
+      "outerHorizontalPaddingDp": 16,
+      "itemPaddingDp": 8,
+      "visibleCardWidthFormula": "viewportWidth / 2 - 32",
+      "cardAspectRatio": 1.45,
+      "minimumImageSizeDp": 134,
+      "cardElevationDp": 3,
+      "targetShadowStyle": "OUTER_DEFAULT_SM"
+    },
+    "suggestionGroups": [
+      {
+        "name": "Recent searches",
+        "items": ["Cheese", "Apple Sauce"]
+      },
+      {
+        "name": "Popular searches",
+        "items": ["Organic", "Gluten Free", "Paleo", "Vegan", "Vegitarian", "Whole30"]
+      }
+    ]
+  },
+  "cart": {
+    "initialLines": [
+      {
+        "snackStableId": 5,
+        "quantity": 2
+      },
+      {
+        "snackStableId": 7,
+        "quantity": 3
+      },
+      {
+        "snackStableId": 9,
+        "quantity": 1
+      }
+    ],
+    "orderLineCount": 3,
+    "subtotalCents": 5444,
+    "shippingCents": 369,
+    "totalCents": 5813,
+    "quantityFailureInterval": 5,
+    "decrementAtOneRemoves": true,
+    "orderHeaderCountsLinesNotUnits": true
+  },
+  "resources": {
+    "images": [
+      "entry/src/main/resources/base/media/almonds.jpg",
+      "entry/src/main/resources/base/media/apple_chips.jpg",
+      "entry/src/main/resources/base/media/apple_juice.jpg",
+      "entry/src/main/resources/base/media/apple_pie.jpg",
+      "entry/src/main/resources/base/media/apple_sauce.jpg",
+      "entry/src/main/resources/base/media/apples.jpg",
+      "entry/src/main/resources/base/media/cheese.jpg",
+      "entry/src/main/resources/base/media/chips.jpg",
+      "entry/src/main/resources/base/media/cupcake.jpg",
+      "entry/src/main/resources/base/media/desserts.jpg",
+      "entry/src/main/resources/base/media/donut.jpg",
+      "entry/src/main/resources/base/media/eclair.jpg",
+      "entry/src/main/resources/base/media/froyo.jpg",
+      "entry/src/main/resources/base/media/fruit.jpg",
+      "entry/src/main/resources/base/media/gingerbread.jpg",
+      "entry/src/main/resources/base/media/gluten_free.jpg",
+      "entry/src/main/resources/base/media/grapes.jpg",
+      "entry/src/main/resources/base/media/honeycomb.jpg",
+      "entry/src/main/resources/base/media/ice_cream_sandwich.jpg",
+      "entry/src/main/resources/base/media/jelly_bean.jpg",
+      "entry/src/main/resources/base/media/kitkat.jpg",
+      "entry/src/main/resources/base/media/kiwi.jpg",
+      "entry/src/main/resources/base/media/lollipop.jpg",
+      "entry/src/main/resources/base/media/mango.jpg",
+      "entry/src/main/resources/base/media/marshmallow.jpg",
+      "entry/src/main/resources/base/media/nougat.jpg",
+      "entry/src/main/resources/base/media/nuts.jpg",
+      "entry/src/main/resources/base/media/oreo.jpg",
+      "entry/src/main/resources/base/media/organic.jpg",
+      "entry/src/main/resources/base/media/paleo.jpg",
+      "entry/src/main/resources/base/media/pie.jpg",
+      "entry/src/main/resources/base/media/placeholder.jpg",
+      "entry/src/main/resources/base/media/popcorn.jpg",
+      "entry/src/main/resources/base/media/pretzels.jpg",
+      "entry/src/main/resources/base/media/smoothies.jpg",
+      "entry/src/main/resources/base/media/vegan.jpg"
+    ],
+    "fonts": [
+      "entry/src/main/resources/rawfile/fonts/karla_bold.ttf",
+      "entry/src/main/resources/rawfile/fonts/karla_regular.ttf",
+      "entry/src/main/resources/rawfile/fonts/montserrat_light.ttf",
+      "entry/src/main/resources/rawfile/fonts/montserrat_medium.ttf",
+      "entry/src/main/resources/rawfile/fonts/montserrat_regular.ttf",
+      "entry/src/main/resources/rawfile/fonts/montserrat_semibold.ttf"
+    ],
+    "theme": {
+      "brand": "#4B30ED",
+      "secondary": "#86F7FA",
+      "background": "#FFFFFF"
+    },
+    "license": "ASSETS_LICENSE"
+  },
+  "publicCopy": {
+    "detailDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus, sem vitae convallis imperdiet, lectus nunc pharetra diam, ac rhoncus quam eros eu risus. Nulla pulvinar condimentum erat, pulvinar tempus turpis blandit ut. Etiam sed ipsum sed lacus eleifend hendrerit eu quis quam. Etiam ligula eros, finibus vestibulum tortor ac, ultrices accumsan dolor. Vivamus vel nisl a libero lobortis posuere. Aenean facilisis nibh vel ultrices bibendum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse ac est vitae lacus commodo efficitur at ut massa. Etiam vestibulum sit amet sapien sed varius. Aliquam non ipsum imperdiet, pulvinar enim nec, mollis risus. Fusce id tincidunt nisl.",
+    "noResultsTitleTemplate": "No matches for “%1s”",
+    "noResultsRetry": "Try broadening your search"
+  },
+  "requiredTexts": [
+    "Jetsnack",
+    "HOME",
+    "Delivery to 1600 Amphitheater Way",
+    "Android's picks",
+    "Popular on Jetsnack",
+    "WFH favourites",
+    "Newly Added",
+    "Only on Jetsnack",
+    "SEARCH",
+    "Search Jetsnack",
+    "Categories",
+    "No matches for “%1s”",
+    "Try broadening your search",
+    "MY CART",
+    "Order (3 items)",
+    "Summary",
+    "Subtotal",
+    "Shipping & Handling",
+    "Total",
+    "Checkout",
+    "PROFILE",
+    "This is currently work in progress",
+    "Grab a beverage and check back later!",
+    "Chips",
+    "Details",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tempus, sem vitae convallis imperdiet, lectus nunc pharetra diam, ac rhoncus quam eros eu risus. Nulla pulvinar condimentum erat, pulvinar tempus turpis blandit ut. Etiam sed ipsum sed lacus eleifend hendrerit eu quis quam. Etiam ligula eros, finibus vestibulum tortor ac, ultrices accumsan dolor. Vivamus vel nisl a libero lobortis posuere. Aenean facilisis nibh vel ultrices bibendum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse ac est vitae lacus commodo efficitur at ut massa. Etiam vestibulum sit amet sapien sed varius. Aliquam non ipsum imperdiet, pulvinar enim nec, mollis risus. Fusce id tincidunt nisl.",
+    "SEE MORE",
+    "SEE LESS",
+    "Ingredients",
+    "Vanilla, Almond Flour, Eggs, Butter, Cream, Sugar",
+    "Qty",
+    "ADD TO CART"
+  ],
+  "publicTestContract": {
+    "source": "source-facts/android-source/app/src/androidTest/java/com/example/jetsnack/AppTest.kt",
+    "sha256": "8339160e22f6ebae01cb535ff010b5209cd9bb1e3e1a23507911c171d11be06a",
+    "journeys": [
+      "core.feed",
+      "core.public-app-test.navigate-all-screens",
+      "core.public-app-test.open-chips-detail"
+    ]
+  },
+  "noOpContracts": [
+    {
+      "id": "delivery.address.expand",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/DestinationBar.kt",
+      "target": "entry/src/main/ets/components/DestinationBar.ets",
+      "stableId": "action.delivery.address.expand",
+      "journey": "core.feed.delivery.noop",
+      "description": "The delivery address expand icon has an empty handler and must not mutate state."
+    },
+    {
+      "id": "feed.collection.action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/components/Snacks.kt",
+      "target": "entry/src/main/ets/components/SnackCollection.ets",
+      "stableId": "action.feed.collection",
+      "journey": "core.feed.collection.noop",
+      "description": "The collection header arrow has an empty handler and must not navigate."
+    },
+    {
+      "id": "filter.reset",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/FilterScreen.kt",
+      "target": "entry/src/main/ets/screens/FilterOverlay.ets",
+      "stableId": "action.filter.reset",
+      "journey": "core.filter.reset.noop",
+      "description": "The Reset icon handler is a TODO and does not reset state."
+    },
+    {
+      "id": "filter.applyToFeed",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Feed.kt",
+      "target": "entry/src/main/ets/screens/FilterOverlay.ets",
+      "stableId": "action.filter.applyToFeed",
+      "journey": "core.filter.apply.noop",
+      "description": "Filter selections are local UI state and do not alter the feed collections."
+    },
+    {
+      "id": "search.category.select",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/search/Categories.kt",
+      "target": "entry/src/main/ets/screens/SearchScreen.ets",
+      "stableId": "action.search.category.select",
+      "journey": "core.search.category.noop",
+      "description": "Search category cards have an empty handler and do not start a query."
+    },
+    {
+      "id": "search.result.add",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/search/Results.kt",
+      "target": "entry/src/main/ets/screens/SearchScreen.ets",
+      "stableId": "action.search.result.add",
+      "journey": "core.search.result.add.noop",
+      "description": "The plus button on a search result has an empty handler and does not change the cart."
+    },
+    {
+      "id": "cart.checkout",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/cart/Cart.kt",
+      "target": "entry/src/main/ets/screens/CartScreen.ets",
+      "stableId": "action.cart.checkout",
+      "journey": "core.cart.checkout.noop",
+      "description": "Checkout has an empty handler and must not navigate or mutate the cart."
+    },
+    {
+      "id": "cart.swipeDismiss.persistence",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/cart/SwipeDismissItem.kt",
+      "target": "entry/src/main/ets/screens/CartScreen.ets",
+      "stableId": "action.cart.swipeDismiss.persistence",
+      "journey": "core.cart.swipe.noop",
+      "description": "Swipe dismissal only hides the composable; it does not update CartViewModel state."
+    },
+    {
+      "id": "detail.addToCart",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/snackdetail/SnackDetail.kt",
+      "target": "entry/src/main/ets/screens/DetailScreen.ets",
+      "stableId": "action.detail.addToCart",
+      "journey": "core.detail.add.noop",
+      "description": "ADD TO CART has an empty handler and does not change the cart."
+    },
+    {
+      "id": "detail.related.select",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/snackdetail/SnackDetail.kt",
+      "target": "entry/src/main/ets/screens/DetailScreen.ets",
+      "stableId": "action.detail.related.select",
+      "journey": "core.detail.related.noop",
+      "description": "Related collection snack clicks are discarded and do not navigate."
+    }
+  ]
+}

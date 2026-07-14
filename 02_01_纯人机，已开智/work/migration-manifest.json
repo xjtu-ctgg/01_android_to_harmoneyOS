@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "23e1421b72b602d80486777efbf24dd248abf3bb",
+  "target": {
+    "platform": "HarmonyOS",
+    "model": "Stage",
+    "language": "ArkTS",
+    "uiFramework": "ArkUI",
+    "module": "entry"
+  },
+  "mappings": [
+    {
+      "id": "feed",
+      "kind": "page",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Feed.kt",
+      "target": "entry/src/main/ets/screens/FeedScreen.ets",
+      "stableId": "screen.feed",
+      "status": "implemented",
+      "journey": "core.feed"
+    },
+    {
+      "id": "search",
+      "kind": "page",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/search/Search.kt",
+      "target": "entry/src/main/ets/screens/SearchScreen.ets",
+      "stableId": "screen.search",
+      "status": "implemented",
+      "journey": "core.search"
+    },
+    {
+      "id": "cart",
+      "kind": "page",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/cart/Cart.kt",
+      "target": "entry/src/main/ets/screens/CartScreen.ets",
+      "stableId": "screen.cart",
+      "status": "implemented",
+      "journey": "core.cart"
+    },
+    {
+      "id": "profile",
+      "kind": "page",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Profile.kt",
+      "target": "entry/src/main/ets/screens/ProfileScreen.ets",
+      "stableId": "screen.profile",
+      "status": "implemented",
+      "journey": "core.profile"
+    },
+    {
+      "id": "detail",
+      "kind": "page",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/snackdetail/SnackDetail.kt",
+      "target": "entry/src/main/ets/screens/DetailScreen.ets",
+      "stableId": "screen.detail",
+      "status": "implemented",
+      "journey": "core.detail"
+    },
+    {
+      "id": "filter",
+      "kind": "page",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/FilterScreen.kt",
+      "target": "entry/src/main/ets/screens/FilterOverlay.ets",
+      "stableId": "overlay.filter",
+      "status": "implemented",
+      "journey": "core.filter"
+    },
+    {
+      "id": "route.feed",
+      "kind": "route",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.feed",
+      "status": "implemented",
+      "journey": "core.navigation.feed"
+    },
+    {
+      "id": "route.search",
+      "kind": "route",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.search",
+      "status": "implemented",
+      "journey": "core.navigation.search"
+    },
+    {
+      "id": "route.cart",
+      "kind": "route",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.cart",
+      "status": "implemented",
+      "journey": "core.navigation.cart"
+    },
+    {
+      "id": "route.profile",
+      "kind": "route",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.profile",
+      "status": "implemented",
+      "journey": "core.navigation.profile"
+    },
+    {
+      "id": "route.detail",
+      "kind": "route",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/JetsnackApp.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.detail",
+      "status": "implemented",
+      "journey": "core.navigation.detail"
+    },
+    {
+      "id": "route.filter",
+      "kind": "route",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Feed.kt",
+      "target": "entry/src/main/ets/state/AppRoute.ets",
+      "stableId": "nav.filter",
+      "status": "implemented",
+      "journey": "core.navigation.filter"
+    },
+    {
+      "id": "delivery.address.expand",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/DestinationBar.kt",
+      "target": "entry/src/main/ets/components/DestinationBar.ets",
+      "stableId": "action.delivery.address.expand",
+      "status": "implemented",
+      "journey": "core.feed.delivery.noop"
+    },
+    {
+      "id": "feed.collection.action",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/components/Snacks.kt",
+      "target": "entry/src/main/ets/components/SnackCollection.ets",
+      "stableId": "action.feed.collection",
+      "status": "implemented",
+      "journey": "core.feed.collection.noop"
+    },
+    {
+      "id": "filter.reset",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/FilterScreen.kt",
+      "target": "entry/src/main/ets/screens/FilterOverlay.ets",
+      "stableId": "action.filter.reset",
+      "status": "implemented",
+      "journey": "core.filter.reset.noop"
+    },
+    {
+      "id": "filter.applyToFeed",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Feed.kt",
+      "target": "entry/src/main/ets/screens/FilterOverlay.ets",
+      "stableId": "action.filter.applyToFeed",
+      "status": "implemented",
+      "journey": "core.filter.apply.noop"
+    },
+    {
+      "id": "search.category.select",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/search/Categories.kt",
+      "target": "entry/src/main/ets/screens/SearchScreen.ets",
+      "stableId": "action.search.category.select",
+      "status": "implemented",
+      "journey": "core.search.category.noop"
+    },
+    {
+      "id": "search.result.add",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/search/Results.kt",
+      "target": "entry/src/main/ets/screens/SearchScreen.ets",
+      "stableId": "action.search.result.add",
+      "status": "implemented",
+      "journey": "core.search.result.add.noop"
+    },
+    {
+      "id": "cart.checkout",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/cart/Cart.kt",
+      "target": "entry/src/main/ets/screens/CartScreen.ets",
+      "stableId": "action.cart.checkout",
+      "status": "implemented",
+      "journey": "core.cart.checkout.noop"
+    },
+    {
+      "id": "cart.swipeDismiss.persistence",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/cart/SwipeDismissItem.kt",
+      "target": "entry/src/main/ets/screens/CartScreen.ets",
+      "stableId": "action.cart.swipeDismiss.persistence",
+      "status": "implemented",
+      "journey": "core.cart.swipe.noop"
+    },
+    {
+      "id": "detail.addToCart",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/snackdetail/SnackDetail.kt",
+      "target": "entry/src/main/ets/screens/DetailScreen.ets",
+      "stableId": "action.detail.addToCart",
+      "status": "implemented",
+      "journey": "core.detail.add.noop"
+    },
+    {
+      "id": "detail.related.select",
+      "kind": "action",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/snackdetail/SnackDetail.kt",
+      "target": "entry/src/main/ets/screens/DetailScreen.ets",
+      "stableId": "action.detail.related.select",
+      "status": "implemented",
+      "journey": "core.detail.related.noop"
+    },
+    {
+      "id": "snack-data",
+      "kind": "data",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/model/Snack.kt",
+      "target": "entry/src/main/ets/data/SnackData.ets",
+      "stableId": "data.snacks",
+      "status": "implemented",
+      "journey": "core.feed.data"
+    },
+    {
+      "id": "search-data",
+      "kind": "data",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/model/Search.kt",
+      "target": "entry/src/main/ets/data/SearchData.ets",
+      "stableId": "data.search",
+      "status": "implemented",
+      "journey": "core.search.data"
+    },
+    {
+      "id": "cart-state",
+      "kind": "state",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/cart/CartViewModel.kt",
+      "target": "entry/src/main/ets/state/AppStore.ets",
+      "stableId": "state.cart",
+      "status": "implemented",
+      "journey": "core.cart.state"
+    },
+    {
+      "id": "theme",
+      "kind": "theme",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/theme/Theme.kt",
+      "target": "entry/src/main/ets/theme/JetsnackTheme.ets",
+      "stableId": "theme.jetsnack",
+      "status": "implemented",
+      "journey": "core.visual.theme"
+    },
+    {
+      "id": "images",
+      "kind": "resource",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/model/Snack.kt",
+      "target": "ASSETS_LICENSE",
+      "stableId": "resources.images",
+      "status": "implemented",
+      "journey": "core.visual.images"
+    },
+    {
+      "id": "fonts",
+      "kind": "resource",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/theme/Type.kt",
+      "target": "entry/src/main/ets/theme/JetsnackTheme.ets",
+      "stableId": "resources.fonts",
+      "status": "implemented",
+      "journey": "core.visual.fonts"
+    },
+    {
+      "id": "strings",
+      "kind": "resource",
+      "source": "source-facts/android-source/app/src/main/res/values/strings.xml",
+      "target": "entry/src/main/resources/base/element/string.json",
+      "stableId": "resources.strings",
+      "status": "implemented",
+      "journey": "core.visual.text"
+    },
+    {
+      "id": "bottom-navigation",
+      "kind": "component",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/home/Home.kt",
+      "target": "entry/src/main/ets/components/BottomNav.ets",
+      "stableId": "component.bottomNav",
+      "status": "implemented",
+      "journey": "core.navigation.tabs"
+    },
+    {
+      "id": "quantity-selector",
+      "kind": "component",
+      "source": "source-facts/android-source/app/src/main/java/com/example/jetsnack/ui/components/QuantitySelector.kt",
+      "target": "entry/src/main/ets/components/QuantitySelector.ets",
+      "stableId": "component.quantitySelector",
+      "status": "implemented",
+      "journey": "core.cart.quantity"
+    },
+    {
+      "id": "recent-orders-widget",
+      "kind": "component",
+      "source": "source-facts/android-widget.json",
+      "target": "entry/src/main/ets/form/RecentOrdersForm.ets",
+      "stableId": "form.recentOrders",
+      "status": "implemented",
+      "journey": "core.form.recent-orders"
+    },
+    {
+      "id": "recent-orders-title-cart",
+      "kind": "action",
+      "source": "source-facts/android-widget.json",
+      "target": "entry/src/main/ets/form/RecentOrdersForm.ets",
+      "stableId": "form.action.cart.title",
+      "status": "implemented",
+      "journey": "core.form.title-cart"
+    },
+    {
+      "id": "recent-orders-trailing-cart",
+      "kind": "action",
+      "source": "source-facts/android-widget.json",
+      "target": "entry/src/main/ets/form/RecentOrdersForm.ets",
+      "stableId": "form.action.cart.1",
+      "status": "implemented",
+      "journey": "core.form.trailing-cart"
+    }
+  ]
+}

@@ -70,3 +70,5 @@ sh tools/verify.sh --strict
 | Journey 用例 | `work/journeys/core.yaml` | 公开行为、界面和接口检查点 |
 | 统一验证入口 | `work/tools/verify.sh` | 合同测试和 HAP 构建 |
 | 构建 HAP | `work/entry/build/default/outputs/default/entry-default-unsigned.hap` | 构建成功后的非签名验证产物 |
+| 自验证结果 | `result/output.md` | 最近一次本地复现结果和环境边界 |
+| 交互与验证轨迹 | `logs/interaction.md`、`logs/trace/` | 人工交互摘要及可复核的实现、验证记录 |
