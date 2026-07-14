@@ -1,0 +1,19 @@
+{
+  "forms": [
+    {
+      "name": "RecentOrdersForm",
+      "displayName": "$string:recent_orders_form_name",
+      "description": "$string:recent_orders_form_description",
+      "src": "./ets/form/RecentOrdersForm.ets",
+      "uiSyntax": "arkts",
+      "isDefault": true,
+      "isDynamic": true,
+      "colorMode": "auto",
+      "fontScaleFollowSystem": true,
+      "updateEnabled": false,
+      "defaultDimension": "2*4",
+      "supportDimensions": ["2*2", "2*4", "4*4"],
+      "resizable": true
+    }
+  ]
+}

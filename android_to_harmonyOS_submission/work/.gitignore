@@ -1,0 +1,12 @@
+.DS_Store
+
+# HarmonyOS/Hvigor generated state and outputs.
+/.hvigor/
+/oh_modules/
+/build/
+/entry/build/
+/entry/oh_modules/
+
+# Local contract-test caches.
+__pycache__/
+*.py[cod]
