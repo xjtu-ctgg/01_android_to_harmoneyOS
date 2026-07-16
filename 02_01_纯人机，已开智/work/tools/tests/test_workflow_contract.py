@@ -39,6 +39,34 @@ class WorkflowContractTests(unittest.TestCase):
         self.assertIn("journeys/core.yaml", source)
         self.assertIn("tools/verify.sh", source)
 
+    def test_skill_packaging_matches_the_platform_delivery_contract(self) -> None:
+        source = SKILL.read_text(encoding="utf-8")
+        for marker in (
+            "single root directory",
+            "INSTRUCTION.md",
+            "work/",
+            "result/output.md",
+            "logs/interaction.md",
+            "logs/trace/",
+            "migration-report.md",
+        ):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, source)
+        self.assertNotIn(
+            "Package the contents so `INSTRUCTION.md` and `work/` are top-level entries",
+            source,
+        )
+
+    def test_contract_suite_avoids_python_310_only_zip_strict(self) -> None:
+        violations = []
+        for path in sorted((ROOT / "tools").rglob("*.py")):
+            if path.resolve() == Path(__file__).resolve():
+                continue
+            source = path.read_text(encoding="utf-8")
+            if re.search(r"zip\([^)]*strict\s*=\s*True", source, re.DOTALL):
+                violations.append(path.relative_to(ROOT).as_posix())
+        self.assertEqual([], violations, f"Python 3.10-only zip(strict=True) found: {violations}")
+
     def test_agent_metadata_invokes_the_exact_skill(self) -> None:
         source = AGENT.read_text(encoding="utf-8")
         self.assertIn("$android-to-harmonyos", source)

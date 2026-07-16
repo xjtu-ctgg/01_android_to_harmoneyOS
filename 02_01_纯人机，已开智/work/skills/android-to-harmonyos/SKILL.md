@@ -52,10 +52,11 @@ Do not claim device, screenshot, or official Code Linter verification without it
 
 1. Require all manifest mappings to be `implemented` or `verified` and all gates to pass.
 2. Remove Android build products, caches, credentials, absolute personal paths, temporary SDKs, and repository metadata from the submission copy.
-3. Keep `INSTRUCTION.md`, the complete Harmony project, this Skill, `source-facts/`, `migration-manifest.json`, `journeys/`, and `tools/`.
+3. Keep `INSTRUCTION.md`, the complete Harmony project, `migration-report.md`, this Skill, `source-facts/`, `migration-manifest.json`, `journeys/`, and `tools/`.
 4. Run [scripts/run-project-gates.sh](scripts/run-project-gates.sh) from any directory.
-5. Package the contents so `INSTRUCTION.md` and `work/` are top-level entries; do not add an extra repository-name directory.
-6. Use `tools/five_executor_verify.py` only as a local delivery rehearsal. A platform Executor must not recursively launch the five-run harness.
+5. Package exactly one single root directory named like the ZIP. Inside it keep `INSTRUCTION.md`, `work/`, `result/output.md`, `logs/interaction.md`, and `logs/trace/`; the Harmony project and `migration-report.md` remain under `work/`.
+6. Keep the submitted `INSTRUCTION.md` scorer-oriented: for this competition the Scorer reads `work/migration-report.md` and ArkTS sources against the supplied intent cases. The delivered `work/` is authoritative; do not regenerate it from Android or require SDK installation/build as a precondition for source scoring. If `tools/verify.sh --build` reports `reason=missing_sdk`, `reason=missing_hvigor`, or `reason=missing_codelinter`, record the environment boundary once and continue to the Scorer instead of retrying or installing tools.
+7. Use `tools/five_executor_verify.py` only as a local delivery rehearsal. A platform Executor must not recursively launch the five-run harness.
 
 ## Decision rules
 

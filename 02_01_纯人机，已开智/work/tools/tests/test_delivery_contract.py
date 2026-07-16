@@ -1069,49 +1069,77 @@ class DeliveryContractTests(unittest.TestCase):
 
         self.assertEqual(["entry/src/main/ets/ClassicLoop.ets"], violations)
 
-    def test_26_instruction_distinguishes_project_dependencies_from_hvigor_bootstrap(self) -> None:
+    def test_26_instruction_uses_official_source_review_workflow(self) -> None:
         instruction_path = ROOT.parent / "INSTRUCTION.md"
         if not instruction_path.is_file():
             self.skipTest("work-only build copy intentionally has no delivery-root INSTRUCTION.md")
         instruction = instruction_path.read_text(encoding="utf-8")
 
-        self.assertIn("工程本身没有 ohpm 第三方依赖", instruction)
-        self.assertIn("Hvigor 自带或已初始化的 pnpm", instruction)
-        self.assertIn("不得在评测过程中临时联网安装", instruction)
-        self.assertIn("VERIFY_BUILD_TIMEOUT_SECONDS", instruction)
-        self.assertIn("reason=build_timeout", instruction)
-        self.assertNotIn(
-            "工程没有 ohpm 第三方依赖，不需要联网下载依赖。",
-            instruction,
-        )
+        for marker in ("Scorer", "意图用例", "work/migration-report.md"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, instruction)
+        for execution_marker in (
+            "评分平台执行构建",
+            "唯一必需",
+        ):
+            with self.subTest(execution_marker=execution_marker):
+                self.assertNotIn(execution_marker, instruction)
         for context_only_marker in ("docs/", "introduction.md", "Git 上传", "最终 ZIP"):
             with self.subTest(context_only_marker=context_only_marker):
                 self.assertNotIn(context_only_marker, instruction)
 
-    def test_26b_instruction_models_five_independent_read_only_platform_executors(self) -> None:
+    def test_26c_instruction_describes_platform_reproduction_and_harmony_skill_handoff(self) -> None:
         instruction_path = ROOT.parent / "INSTRUCTION.md"
         if not instruction_path.is_file():
             self.skipTest("work-only build copy intentionally has no delivery-root INSTRUCTION.md")
         instruction = instruction_path.read_text(encoding="utf-8")
         for marker in (
-            "package_root",
-            "只读",
-            "executor_1",
-            "executor_5",
-            "各自独立的可写工作目录",
-            "tools/verify.sh --build",
-            "验证通过后不做随机重写",
+            "环境准备",
+            "执行方式",
+            "执行完成判定",
+            "sh tools/verify.sh --static",
+            "sh tools/verify.sh --build",
+            "HarmonyOS 评分 Skill",
+            "BUILD SUCCESSFUL",
+            "status=passed",
+            "entry/build/default/outputs/default/entry-default-unsigned.hap",
+            "不得临时联网安装",
         ):
             with self.subTest(marker=marker):
                 self.assertIn(marker, instruction)
 
-    def test_26c_instruction_build_command_does_not_write_read_only_package_root(self) -> None:
+    def test_26a_instruction_describes_reproducible_harmony_build_contract(self) -> None:
         instruction_path = ROOT.parent / "INSTRUCTION.md"
         if not instruction_path.is_file():
             self.skipTest("work-only build copy intentionally has no delivery-root INSTRUCTION.md")
         instruction = instruction_path.read_text(encoding="utf-8")
-        self.assertNotIn("chmod +x work/tools/", instruction)
-        self.assertIn("sh tools/verify.sh --build", instruction)
+        for marker in (
+            "API 20",
+            "Hvigor",
+            "Node.js/JDK",
+            "sh tools/verify.sh --build",
+            "BUILD SUCCESSFUL",
+            "status=passed",
+        ):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, instruction)
+
+    def test_26b_migration_report_indexes_scorable_source_evidence(self) -> None:
+        report_path = ROOT / "migration-report.md"
+        self.assertTrue(report_path.is_file(), "missing scorer-facing work/migration-report.md")
+        report = report_path.read_text(encoding="utf-8")
+        for marker in (
+            "entry/src/main/ets/pages/Index.ets",
+            "entry/src/main/ets/state/AppStore.ets",
+            "entry/src/main/ets/components/",
+            "entry/src/main/resources/",
+            "migration-manifest.json",
+            "功能对照",
+            "界面一致性",
+            "代码规范",
+        ):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, report)
 
     def test_27_official_style_policy_masks_text_and_detects_authored_code(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

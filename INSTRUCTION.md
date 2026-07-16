@@ -2,73 +2,60 @@
 
 ## 1. 作品概述
 
-本作品将固定版本的 Jetsnack Android 应用移植为可编译的 HarmonyOS ArkTS/ArkUI Stage 工程。完整结果已经放在 `work/`，评测时直接读取、检查并构建该代码仓。
+本作品将指定版本的 Jetsnack Android 应用重构为原生 HarmonyOS ArkTS/ArkUI Stage 工程，并提供可复用的迁移 Skill、源码事实快照、行为 Journey 和完整鸿蒙代码仓。最终代码仓位于 `work/`。
 
-## 2. 输入与环境
+## 2. 输入与环境准备
 
-本作品没有运行时业务输入；`work/` 就是待评测的完整鸿蒙代码仓。`work/source-facts/` 保存 Android 固定提交的事实快照，`work/migration-manifest.json` 保存迁移映射，供功能和接口核对使用。
-
-评测环境准备：
-
-| 项目 | 要求 |
+| 输入项 | 说明 |
 | --- | --- |
-| HarmonyOS 工具链 | DevEco Studio 或 Command Line Tools，含 API 20 SDK |
-| 构建工具 | Hvigor 5.x/6.x、工具链配套 Node.js、Hvigor 自带或已初始化的 pnpm |
-| Java | JDK 17 或 21 |
-| 合同测试 | Python 3.10+；只使用标准库 |
-| 依赖 | 工程本身没有 ohpm 第三方依赖 |
-| 严格规范门禁 | 评分环境提供官方 Code Linter 时使用；不得在评测过程中临时联网安装 |
+| 鸿蒙代码仓 | `work/` 中重构后的完整 HarmonyOS 工程与本地资源 |
+| 意图用例文件 | 评分平台提供的功能、交互、界面、接口和规范验证用例 |
 
-可选地设置 `DEVECO_SDK_HOME`、`HVIGORW`、`DEVECO_NODE_HOME`、`JAVA_HOME`、`CODELINTER` 和已初始化的 `HVIGOR_USER_HOME`。工具已在标准目录或 `PATH` 时无需设置。所有执行均应为非交互方式。
+本地编译环境为 HarmonyOS API 20 SDK、Hvigor、配套 Node.js/JDK 和 Python 3；工程本身没有 ohpm 第三方依赖。优先使用评测环境或交付包旁的已存在工具链，不得临时联网安装依赖。平台 Agent 不需要重新生成鸿蒙代码仓，直接使用已交付的 `work/`；不得因为工具链缺失而反复重试、修改源码或重新下载工程。
 
-## 3. 执行工作流
+## 3. 执行方式
 
-### Step 1：运行统一门禁
+### Step 1：静态合同与规范检查
 
-从交付件根目录执行：
+```bash
+cd work
+sh tools/verify.sh --static
+```
+
+该步骤校验 Android 固定提交事实、迁移映射、资源、稳定 ID、Journey、ArkTS 规范和交付工程结构。输出末尾应包含 `status=passed`。
+
+### Step 2：HarmonyOS 编译验证
+
+仅在已有 HarmonyOS API 20 SDK 和 Hvigor 的环境中执行；构建是可验证项，不是评分 Skill 的前置条件：
 
 ```bash
 cd work
 sh tools/verify.sh --build
 ```
 
-这是唯一必需的执行入口。它依次完成迁移事实校验、Python 合同测试、SDK/Hvigor 探测和 `assembleHap` 构建；构建在临时副本中进行，不要求也不会修改只读交付目录。不要先执行 `chmod`。
+慢速工具链允许最多 1800 秒；必要时可在同一命令前设置 `VERIFY_BUILD_TIMEOUT_SECONDS=3600`。编译完成判定同时满足：输出包含 `BUILD SUCCESSFUL` 和 `status=passed`，并生成非空文件 `work/entry/build/default/outputs/default/entry-default-unsigned.hap`。若输出 `reason=missing_sdk`、`reason=missing_hvigor` 或其它工具链缺失，立即停止构建重试；不能伪造编译通过或联网安装，保留 Step 1 的真实静态结果并继续 Step 3。若官方 Code Linter 可用，再执行 `sh tools/verify.sh --strict`；`reason=missing_codelinter` 只记录环境边界，不得用替代脚本冒充官方扫描。
 
-成功标志：输出 `status=passed`，并生成非空的未签名 HAP。构建默认有 1800 秒上限，适配慢速评测机和工具链初始化；仍需更长时间时可设置正整数 `VERIFY_BUILD_TIMEOUT_SECONDS`（例如 `3600`）。超时会输出 `reason=build_timeout` 并失败，避免真正卡死的进程无限占用 Executor。
+### Step 3：鸿蒙评分 Skill 评测
 
-### Step 2：严格规范门禁（评分环境可用时）
+读取并按 `work/skills/android-to-harmonyos/SKILL.md` 执行鸿蒙评分 Skill，将 `work/` 作为唯一完整鸿蒙代码仓输入。Scorer/Skill 先读取 `work/migration-report.md`，再结合 `work/migration-manifest.json`、`work/source-facts/`、`work/journeys/core.yaml` 和 ArkTS/资源/配置源码，逐条执行公开及非公开用例，覆盖功能一致性、界面截图相似性、接口一致性和代码规范。已交付源码是最终答案：不得从 Android 重新生成或随机重写代码，不得为猜测隐藏用例添加硬编码；只有静态、编译或官方规范检查明确暴露真实错误时，才在当前 Executor 的可写副本中做最小修复，并重新执行受影响的检查。
 
-```bash
-cd work
-sh tools/verify.sh --strict
-```
+## 4. 执行完成判定
 
-该模式在相同合同和构建基础上调用官方 Code Linter。若评测镜像未提供其后端，`preflight` 会明确返回 `reason=missing_codelinter`；不得用替代脚本冒充官方扫描通过。仅做仓内合同检查时可使用 `sh tools/verify.sh --static`。
+作品执行完成需满足：
 
-### Step 3：交给鸿蒙评分 Skill
-
-验证通过后，将 `work/` 作为最终鸿蒙代码仓交给评分 Skill，读取 `work/journeys/core.yaml`、稳定 ID、迁移清单和 ArkTS 源码，执行公开及隐藏的功能、界面、接口和规范用例。验证通过后不做随机重写；只有真实环境暴露确定的编译或规范错误时，才在当前 Executor 的可写副本中做最小修复并重跑 Step 1。
-
-平台可能把解压后的 `package_root` 标为只读，并建立 `executor_1` 至 `executor_5` 五个各自独立的可写工作目录。每个 Executor 在自己的可写副本中独立运行完整用例集，不共享构建状态，也不修改只读输入。
-
-## 4. 完成判定
-
-执行完成需同时满足：
-
-1. 主命令退出码为 0，末尾包含 `status=passed`；
-2. `work/entry/build/default/outputs/default/entry-default-unsigned.hap` 存在且非空；
-3. `work/AppScope/app.json5`、`work/entry/src/main/module.json5`、`work/entry/src/main/ets/pages/Index.ets` 存在；
-4. `--strict` 被调用时，官方 Code Linter 也返回 0，并生成非空 `work/build/reports/codelinter.json`。
+1. `work/` 存在且包含完整 HarmonyOS Stage 工程；
+2. `work/migration-report.md`、`work/migration-manifest.json` 和迁移 Skill 存在；
+3. 静态检查输出 `status=passed`；
+4. 在提供 HarmonyOS 工具链时，构建输出 `BUILD SUCCESSFUL`、`status=passed` 和非空未签名 HAP；
+5. 已读取 `work/skills/android-to-harmonyos/SKILL.md`，HarmonyOS 评分 Skill 已获得 `work/` 并可按 Journey 和源码索引评测隐藏用例。
 
 ## 5. 产物清单
 
-| 产物 | 位置 | 用途 |
-| --- | --- | --- |
-| 完整鸿蒙代码仓 | `work/` | 评分 Skill 的主输入；包含 ArkTS、资源、配置和构建入口 |
-| 自动迁移 Skill | `work/skills/android-to-harmonyos/SKILL.md` | 迁移事实、修复边界和质量门禁说明 |
-| 迁移清单 | `work/migration-manifest.json` | Android→HarmonyOS 文件和行为映射 |
-| Journey 用例 | `work/journeys/core.yaml` | 公开行为、界面和接口检查点 |
-| 统一验证入口 | `work/tools/verify.sh` | 合同测试和 HAP 构建 |
-| 构建 HAP | `work/entry/build/default/outputs/default/entry-default-unsigned.hap` | 构建成功后的非签名验证产物 |
-| 自验证结果 | `result/output.md` | 最近一次本地复现结果和环境边界 |
-| 交互与验证轨迹 | `logs/interaction.md`、`logs/trace/` | 人工交互摘要及可复核的实现、验证记录 |
+| 产物 | 位置 | 格式 | 用途 |
+| --- | --- | --- | --- |
+| 完整鸿蒙项目 | `work/` | ArkTS/ArkUI Stage 工程 | 评分 Skill 的主输入 |
+| 自动迁移 Skill | `work/skills/android-to-harmonyos/SKILL.md` | Skill | 迁移、审计、截图和规范工作流 |
+| 移植说明 | `work/migration-report.md` | Markdown | 功能对照、关键实现和源码证据索引 |
+| 迁移映射 | `work/migration-manifest.json` | JSON | Android 到 HarmonyOS 页面、路由、动作和资源映射 |
+| Android 事实快照 | `work/source-facts/` | JSON/Markdown/源码快照 | 核对指定提交的原始行为与接口 |
+| 行为与视觉 Journey | `work/journeys/core.yaml` | YAML | 公开行为、边界、稳定 ID 和截图检查点 |

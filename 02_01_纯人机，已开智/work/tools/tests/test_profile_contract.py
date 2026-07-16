@@ -132,7 +132,7 @@ class EmptyStateSvgContractTests(unittest.TestCase):
         android_paths = android_root.findall("path")
         svg_paths = svg_root.findall(f"{SVG_NS}path")
         self.assertEqual(len(svg_paths), len(android_paths), "SVG path count changed")
-        for index, (android_shape, svg_shape) in enumerate(zip(android_paths, svg_paths, strict=True)):
+        for index, (android_shape, svg_shape) in enumerate(zip(android_paths, svg_paths)):
             self.assertEqual(
                 svg_shape.attrib.get("d"),
                 android_shape.attrib[f"{ANDROID_NS}pathData"],

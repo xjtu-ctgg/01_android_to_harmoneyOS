@@ -25,6 +25,7 @@ class FiveExecutorVerifyTests(unittest.TestCase):
         fail_executor: int | None = None,
         bad_entry: str | None = None,
         symlink: bool = False,
+        include_report: bool = True,
     ) -> Path:
         root_name = "02_01_测试队"
         archive = directory / f"{root_name}.zip"
@@ -56,6 +57,8 @@ fi
             f"{root_name}/work/tools/verify.sh": script,
             f"{root_name}/work/journeys/core.yaml": "journeys:\n  - id: fake.case\n",
         }
+        if include_report:
+            files[f"{root_name}/work/migration-report.md"] = "# Migration report\nSource evidence index.\n"
         with zipfile.ZipFile(archive, "w", zipfile.ZIP_DEFLATED) as stream:
             for name, content in files.items():
                 stream.writestr(name, content)
@@ -107,6 +110,13 @@ fi
         self.assertEqual(0, result.returncode, result.stderr)
         summary = json.loads(result.stdout.splitlines()[-1])
         self.assertTrue(all(item["hap_valid"] for item in summary["executors"]))
+
+    def test_rejects_archive_without_scorer_migration_report(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            archive = self.make_archive(Path(temporary), include_report=False)
+            result = self.run_harness(archive)
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("work/migration-report.md", result.stderr)
 
     def test_rejects_zip_slip_wrong_top_level_and_symlink(self) -> None:
         cases = (

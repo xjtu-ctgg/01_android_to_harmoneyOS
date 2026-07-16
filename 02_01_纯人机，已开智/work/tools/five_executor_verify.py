@@ -27,6 +27,7 @@ REQUIRED_ARTIFACTS = (
     "work/AppScope/app.json5",
     "work/entry/src/main/module.json5",
     "work/entry/src/main/ets/pages/Index.ets",
+    "work/migration-report.md",
     "work/skills/android-to-harmonyos/SKILL.md",
     "work/tools/verify.sh",
 )
