@@ -7,6 +7,10 @@ description: Reconstruct Android applications as native Stage-model HarmonyOS pr
 
 Produce a native, testable HarmonyOS repository from an Android baseline. Preserve source behavior—including intentional no-ops—and prove each mapping before declaring it complete.
 
+## Completed-delivery handoff
+
+When this Skill is present inside a submitted repository that already contains `entry/`, `migration-manifest.json`, and `migration-report.md`, treat those files as the completed delivery and use this document only as audit evidence. Do not regenerate or modify the repository during platform scoring; the platform's own scoring Skill performs the supplied intent-case evaluation.
+
 ## Workflow
 
 ### 1. Freeze source facts
@@ -55,7 +59,7 @@ Do not claim device, screenshot, or official Code Linter verification without it
 3. Keep `INSTRUCTION.md`, the complete Harmony project, `migration-report.md`, this Skill, `source-facts/`, `migration-manifest.json`, `journeys/`, and `tools/`.
 4. Run [scripts/run-project-gates.sh](scripts/run-project-gates.sh) from any directory.
 5. Package exactly one single root directory named like the ZIP. Inside it keep `INSTRUCTION.md`, `work/`, `result/output.md`, `logs/interaction.md`, and `logs/trace/`; the Harmony project and `migration-report.md` remain under `work/`.
-6. Keep the submitted `INSTRUCTION.md` scorer-oriented: for this competition the Scorer reads `work/migration-report.md` and ArkTS sources against the supplied intent cases. The delivered `work/` is authoritative; do not regenerate it from Android or require SDK installation/build as a precondition for source scoring. If `tools/verify.sh --build` reports `reason=missing_sdk`, `reason=missing_hvigor`, or `reason=missing_codelinter`, record the environment boundary once and continue to the Scorer instead of retrying or installing tools.
+6. Keep the submitted `INSTRUCTION.md` scorer-oriented: for this competition the Scorer reads `work/migration-report.md` and ArkTS sources against the supplied intent cases. This submitted migration Skill is not the platform scoring Skill; do not execute this migration Skill during reproduction when the final `work/` already exists. The delivered `work/` is authoritative; do not regenerate it from Android or require SDK installation/build as a precondition for source scoring. If `tools/verify.sh --build` reports `reason=missing_sdk`, `reason=missing_hvigor`, or `reason=missing_codelinter`, record the environment boundary once and continue to the platform Scorer instead of retrying or installing tools.
 7. Use `tools/five_executor_verify.py` only as a local delivery rehearsal. A platform Executor must not recursively launch the five-run harness.
 
 ## Decision rules

@@ -107,6 +107,7 @@ REQUIRED_PATHS = (
     "migration-manifest.json",
     "skills/android-to-harmonyos/SKILL.md",
     "journeys/core.yaml",
+    "tools/platform_ready.sh",
             "tools/device_evidence.py",
             "tools/screenshot_compare.py",
 )
@@ -1097,9 +1098,10 @@ class DeliveryContractTests(unittest.TestCase):
             "环境准备",
             "执行方式",
             "执行完成判定",
-            "sh tools/verify.sh --static",
+            "sh work/tools/platform_ready.sh",
             "sh tools/verify.sh --build",
-            "HarmonyOS 评分 Skill",
+            "平台自带的鸿蒙评分 Skill",
+            "artifact_status=ready",
             "BUILD SUCCESSFUL",
             "status=passed",
             "entry/build/default/outputs/default/entry-default-unsigned.hap",
@@ -1107,6 +1109,56 @@ class DeliveryContractTests(unittest.TestCase):
         ):
             with self.subTest(marker=marker):
                 self.assertIn(marker, instruction)
+
+    def test_26d_platform_reproduction_is_fast_read_only_and_deterministic(self) -> None:
+        instruction_path = ROOT.parent / "INSTRUCTION.md"
+        if not instruction_path.is_file():
+            self.skipTest("work-only build copy intentionally has no delivery-root INSTRUCTION.md")
+        instruction = instruction_path.read_text(encoding="utf-8")
+        ready_gate = ROOT / "tools" / "platform_ready.sh"
+
+        self.assertTrue(ready_gate.is_file(), "missing deterministic platform readiness gate")
+        self.assertTrue(ready_gate.stat().st_mode & 0o111, "platform readiness gate is not executable")
+        for marker in (
+            "不得修改 `work/`",
+            "不得执行 `work/skills/android-to-harmonyos/SKILL.md`",
+            "平台将自动调度",
+            "不得运行本地多轮复现脚本",
+        ):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, instruction)
+
+        before = {
+            path.relative_to(ROOT).as_posix(): (path.stat().st_size, path.stat().st_mtime_ns)
+            for path in ROOT.rglob("*")
+            if path.is_file() and not any(part in {"build", ".gradle", ".hvigor", "__pycache__"} for part in path.relative_to(ROOT).parts)
+        }
+        first = subprocess.run(
+            ["sh", str(ready_gate)],
+            cwd=ROOT.parent,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        second = subprocess.run(
+            ["sh", str(ready_gate)],
+            cwd=ROOT.parent,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        after = {
+            path.relative_to(ROOT).as_posix(): (path.stat().st_size, path.stat().st_mtime_ns)
+            for path in ROOT.rglob("*")
+            if path.is_file() and not any(part in {"build", ".gradle", ".hvigor", "__pycache__"} for part in path.relative_to(ROOT).parts)
+        }
+
+        self.assertEqual(0, first.returncode, first.stderr)
+        self.assertEqual(first.stdout, second.stdout)
+        self.assertIn("artifact_status=ready", first.stdout)
+        self.assertIn("artifact_path=work", first.stdout)
+        self.assertNotIn(f"artifact_path={ROOT}", first.stdout)
+        self.assertEqual(before, after, "readiness gate modified the delivered repository")
 
     def test_26a_instruction_describes_reproducible_harmony_build_contract(self) -> None:
         instruction_path = ROOT.parent / "INSTRUCTION.md"

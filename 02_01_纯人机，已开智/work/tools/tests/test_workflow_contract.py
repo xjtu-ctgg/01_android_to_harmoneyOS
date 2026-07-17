@@ -57,6 +57,11 @@ class WorkflowContractTests(unittest.TestCase):
             source,
         )
 
+    def test_submitted_migration_skill_is_not_confused_with_platform_scorer(self) -> None:
+        source = SKILL.read_text(encoding="utf-8")
+        self.assertIn("not the platform scoring Skill", source)
+        self.assertIn("do not execute this migration Skill during reproduction", source)
+
     def test_contract_suite_avoids_python_310_only_zip_strict(self) -> None:
         violations = []
         for path in sorted((ROOT / "tools").rglob("*.py")):
@@ -71,6 +76,11 @@ class WorkflowContractTests(unittest.TestCase):
         source = AGENT.read_text(encoding="utf-8")
         self.assertIn("$android-to-harmonyos", source)
         self.assertIn('display_name: "Android to HarmonyOS Migrator"', source)
+
+    def test_agent_metadata_does_not_regenerate_a_completed_delivery(self) -> None:
+        source = AGENT.read_text(encoding="utf-8")
+        self.assertIn("already completed", source)
+        self.assertIn("do not regenerate", source)
 
     def test_journeys_cover_every_page_and_action_mapping(self) -> None:
         source = JOURNEYS.read_text(encoding="utf-8")
